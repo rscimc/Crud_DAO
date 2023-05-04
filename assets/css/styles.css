@@ -1,0 +1,58 @@
+/*Reset*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  ul,
+  li {
+    list-style: none;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  :root {
+    --light: #54fc00;
+    --mid: #b5bfb0;
+    --mid2: #139520;
+    --dark: #050A30;
+    --dark2: #0f6318;
+    --white: #ffffff;
+    --black: #000000;
+  }
+
+  /*Header*/
+header {
+    background-color: var(--light);
+  }
+  .header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header ul {
+    display: flex;
+  }
+  
+  .header a {
+    margin: 1rem;
+    color: var(--dark2);
+    font-size: 1.8rem;
+    transition: 0.5s;
+    font-family: "DM Mono", monospace;
+  }
+  
+  .header a:hover {
+    color: var(--mid2);
+  }
+  
