@@ -35,7 +35,22 @@ class UsuarioDaoMysql implements UsuarioDAO {
         return $array;
     }
     public function findById($id){
-
+        $sql = $this->pdo->prepare("SELECT * FROM usuarios WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+    
+        if($sql->rowCount() > 0) {
+            $data = $sql->fetch();
+            
+            $u = new Usuario();
+            $u->setId($data['id']);
+            $u->setNome($data['nome']);
+            $u->setEmail($data['email']);
+            
+            return $u;
+        } else {
+            return false;
+        }
     }
     public function findByEmail($email){
         $sql = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email");
@@ -46,9 +61,9 @@ class UsuarioDaoMysql implements UsuarioDAO {
             $data = $sql->fetch();
 
             $u = new Usuario();
-            $u->setId($item['id']);
-            $u->setNome($item['nome']);
-            $u->setEmail($item['email']);
+            $u->setId($data['id']);
+            $u->setNome($data['nome']);
+            $u->setEmail($data['email']);
             
             return $u;
 
@@ -57,9 +72,18 @@ class UsuarioDaoMysql implements UsuarioDAO {
         }
     }
     public function update(Usuario $u){
+        $sql = $this->pdo->prepare("UPDATE usuarios SET nome=:nome, email=:email WHERE id=:id");
+        $sql->bindValue(':id', $u->getId());
+        $sql->bindValue(':nome', $u->getNome());
+        $sql->bindValue(':email', $u->getEmail());
+        $sql->execute();
+
+        return true;
 
     }
     public function delete($id){
-
+        $sql = $this->pdo->prepare("DELETE FROM usuarios WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
     }
 }

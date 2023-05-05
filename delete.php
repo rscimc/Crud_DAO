@@ -1,26 +1,19 @@
 <?php
 require('config.php');
 require('header.php');
+require('./dao/UsuarioDaoMysql.php');
 
-$usuario = [];
+$usuarioDao = new UsuarioDaoMysql($pdo);
+
 $id = filter_input(INPUT_GET, 'id');
 
 if($id) {
-    $sql = $pdo->prepare("SELECT * FROM usuarios WHERE id = :id");
-    $sql->bindValue(':id', $id);
-    $sql->execute();
+    $usuarioDao->delete($id);
 
-    if($sql->rowCount() > 0) {
-        $usuario = $sql->fetch(PDO::FETCH_ASSOC);
-    }else {
-        header("Location: index.php");
-        exit;
-    }
-
-} else {
-    header("Location: index.php");
-    exit;
 }
+
+header("Location: index.php");
+exit;
 
 
 ?>
